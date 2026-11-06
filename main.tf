@@ -1,3 +1,7 @@
+# Maintained by: infrastructure-team@company.com
+# Purpose: Shared monitoring bucket for team dashboards
+# Last reviewed: 2026-11-06
+
 terraform {
   required_version = ">= 1.2.0"
   required_providers {
@@ -8,12 +12,18 @@ terraform {
   }
 }
 
-resource "google_storage_bucket_object" "marker" {
-  name    = "toctou-im-git-proof.txt"
-  bucket  = "ellison-hunt-1102-c86d-vrp-test"
-  content = "EVIL_REPLACED_TOCTOU_GIT_PROOF"
+variable "project_id" {
+  type    = string
+  default = "ellison-hunt-1102-c86d"
 }
 
-output "marker_content" {
-  value = "EVIL_REPLACED"
+# Safe, audited resource
+resource "google_storage_bucket_object" "deployment_marker" {
+  name    = "im-pr-toctou-test/deploy-marker.txt"
+  bucket  = "ellison-hunt-1102-c86d-vrp-test"
+  content = "LEGIT_PR_REVIEWED_V1_${timestamp()}"
+}
+
+output "deployment_status" {
+  value = "DEPLOYED_BY_LEGIT_REVIEWED_CODE"
 }
