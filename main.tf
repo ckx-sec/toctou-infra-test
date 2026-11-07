@@ -12,12 +12,10 @@ variable "project_id" {
   default = "ellison-hunt-1102-c86d"
 }
 
-resource "google_storage_bucket_object" "marker" {
-  name    = "im-pr-attack-test/marker.txt"
+resource "google_storage_bucket_object" "legit_a" {
+  name    = "im-pr-attack-test/default-race-legit.txt"
   bucket  = "ellison-hunt-1102-c86d-vrp-test"
-  content = "LEGIT_BASE_SAFE_CODE"
+  content = "DEFAULT_CONFIG_RACE_COMMIT_A_LEGIT_NO_RCE"
 }
 
-output "status" {
-  value = "LEGIT_SAFE"
-}
+output "status" { value = "COMMIT_A_LEGIT_NO_RCE" }
